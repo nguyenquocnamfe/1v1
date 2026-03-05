@@ -1,0 +1,497 @@
+:root {
+    --primary-gold: #cba153;
+    --primary-gold-glow: #e2be78;
+    --dark-bg: #0a0806;
+    --text-main: #f0e6d2;
+    --text-muted: #a39580;
+    --glass-bg: rgba(16, 12, 10, 0.7);
+    --glass-border: rgba(203, 161, 83, 0.25);
+    
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--dark-bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Setup */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, rgba(10, 8, 6, 0.4) 0%, rgba(10, 8, 6, 0.9) 100%), url('bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+    filter: brightness(0.8) contrast(1.1);
+}
+
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+}
+
+.guild-name {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(203, 161, 83, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(203, 161, 83, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.divider {
+    height: 3px;
+    width: 150px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    margin: 1.5rem auto;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 900px) {
+    .content-wrapper {
+        grid-template-columns: 3fr 2fr;
+        align-items: flex-start;
+    }
+}
+
+/* Glass Panels */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(203, 161, 83, 0.05);
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+}
+
+.info-section .glass-panel { animation-delay: 0.2s; }
+.form-section .glass-panel { animation-delay: 0.4s; }
+
+/* Text Content Styling */
+.text-content h3 {
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.8rem;
+}
+
+.text-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.rules-list {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.rules-list li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.rules-list li::before {
+    content: '♦';
+    color: var(--primary-gold);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.highlight {
+    color: var(--primary-gold-glow);
+    font-weight: 600;
+}
+
+.prize-pool {
+    font-weight: 600;
+    color: #fff;
+}
+
+.donor-info {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    background: rgba(0,0,0,0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-gold);
+}
+
+.prizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.prize-item {
+    flex: 1 1 calc(50% - 1rem);
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.prize-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 5px 15px rgba(203, 161, 83, 0.2);
+}
+
+.prize-item.gold .rank { color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+.prize-item.silver .rank { color: #C0C0C0; text-shadow: 0 0 10px rgba(192, 192, 192, 0.5); }
+.prize-item.bronze .rank { color: #CD7F32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.5); }
+
+.prize-item .rank {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.prize-item .percent {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Form Styling */
+.form-panel h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.form-desc {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: var(--transition);
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 15px rgba(203, 161, 83, 0.2);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Custom Checkbox */
+.checkbox-group {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 35px;
+    font-size: 1rem;
+    user-select: none;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 22px;
+    width: 22px;
+    background-color: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+    border-color: var(--primary-gold);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #a37b3b, #cba153, #a37b3b);
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 6px;
+    color: #000;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(203, 161, 83, 0.3);
+}
+
+.submit-btn:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(203, 161, 83, 0.5);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,0,0,0.3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s ease-in-out infinite;
+    position: absolute;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Messaging */
+.message-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.message-box.hidden {
+    display: none;
+}
+
+.message-box.success {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+}
+
+.message-box.error {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 5rem;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .main-title { font-size: 2.2rem; }
+    .glass-panel { padding: 1.5rem; }
+    .prize-item { flex: 1 1 100%; }
+}
+
+
+.donor-section{
+    margin-top:40px;
+    padding:25px;
+    border-radius:12px;
+    background:rgba(0,0,0,0.6);
+    border:1px solid #cba153;
+}
+
+.donor-title{
+    text-align:center;
+    color:#cba153;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.donor-table{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.donor-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 15px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+
+.donor-row:hover{
+    background:rgba(203,161,83,0.15);
+    transform:scale(1.02);
+}
+
+.donor-name{
+    color:#fff;
+    font-weight:500;
+}
+
+.donor-amount{
+    color:#cba153;
+    font-weight:bold;
+}
